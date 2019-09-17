@@ -1,9 +1,9 @@
 import Axios from 'axios';
 
-export const getWishlist = () => {
+export const getWishlist = (id) => {
     return{
         type: 'GET_WISHLIST',
-        payload: Axios.get('http://localhost:3001/api/wishlist/')
+        payload: Axios.get(`http://localhost:3001/api/wishlist/${id}`)
     }
 }
 

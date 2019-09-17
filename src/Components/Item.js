@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/Item.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Item extends React.Component{
     constructor(props){
@@ -13,15 +13,13 @@ class Item extends React.Component{
     }
 
     render(){
-
         return(
-           
-            // <Link>
+            <Link to={`/itemDetails/${this.state.id}`}>
                 <div className='item-card'>
                     <p className='item-name'>{this.state.name}</p>
                     <img className='item-img' src={this.state.image} alt='Item'></img>
                 </div>
-            // </Link>
+            </Link>
         )
     }
 }

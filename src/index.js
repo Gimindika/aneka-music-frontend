@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-import Test from './Test';
+// import Test from './Test';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -15,7 +15,8 @@ import store from './public/redux/store';
 const Index = () => {
     return(
         <Provider store={store}>
-            <Test />
+            {/* <Test /> */}
+            <App/>
         </Provider>
     )
 }

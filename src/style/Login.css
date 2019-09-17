@@ -1,0 +1,33 @@
+
+.form-login{
+    position: relative;
+    top: 200px;
+    left: 450px;
+
+    height: 400px;
+    width: 400px;
+
+    padding: 100px;
+}
+
+.form-title{
+    margin-bottom: 30px;
+    margin-left: 60px;
+}
+
+.label-login{
+    font-size: 25px;
+}
+
+.input-login{
+    font-size: 25px;
+}
+
+.submit-login{
+    position: relative;
+    margin-top:20px;
+    left: 230px;
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+}

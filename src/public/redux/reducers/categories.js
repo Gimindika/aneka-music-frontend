@@ -1,5 +1,6 @@
 const initialState = {
     categories: [],
+    displayCategories: true,
     isLoading: false,
     isFullfiled: false,
     isRejected: false
@@ -108,6 +109,16 @@ const initialState = {
           categories:dataAfterDelete
         };
   
+        //SET_DISPLAY/////////////////////////////////////////////////////////
+      case "SET_DISPLAY":
+        return {
+          ...state,
+          isLoading: false,
+          isRejected: false,
+          isFullfiled: true,
+          displayCategories: action.payload,
+        };
+
       default:
         return state;
     }

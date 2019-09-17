@@ -1,5 +1,12 @@
 import Axios from 'axios';
 
+export const getBranch = () => {
+    return{
+        type: 'GET_BRANCH',
+        payload: Axios.get('http://localhost:3001/api/branch/')
+    }
+}
+
 export const addBranch = (data) => {
     return{
         type: 'ADD_BRANCH',

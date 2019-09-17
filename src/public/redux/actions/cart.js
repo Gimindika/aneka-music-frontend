@@ -1,9 +1,9 @@
 import Axios from 'axios';
 
-export const getCart = () => {
+export const getCart = (id) => {
     return{
         type: 'GET_CART',
-        payload: Axios.get('http://localhost:3001/api/cart/')
+        payload: Axios.get(`http://localhost:3001/api/cart/${id}`)
     }
 }
 

@@ -17,7 +17,7 @@ export const getItemsByBranch = (id) => {
 export const getItemsByName = (name) => {
     return{
         type: 'GET_ITEMS_BYNAME',
-        payload: Axios.get(`http://localhost:3001/api/items/${name}`)
+        payload: Axios.get(`http://localhost:3001/api/items/name/${name}`)
     }
 }
 

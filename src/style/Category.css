@@ -1,0 +1,49 @@
+.category-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    width: 320px;
+    height: 370px;
+    margin: 10px;
+
+    background: #F5D372;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.category-card:hover{
+    transform: scale(1.05);
+    transition-duration: 500ms;
+    background-color: rgb(235, 179, 25);
+    border: 2px solid white;
+}
+
+.category-name{
+    position: absolute;
+    width: 98px;
+    height: 42px;
+    top:325px;
+
+    font-family: Airbnb Cereal App;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 39px;
+
+    color: #000000;
+}
+
+.category-card:hover .category-name{
+    transition-duration: 500ms;
+    color: white;
+    z-index: 1;
+}
+
+.category-img{
+    position: absolute;
+    top:1px;
+    width: 315px;
+    height: 315px;
+    border-radius: 5px;
+}

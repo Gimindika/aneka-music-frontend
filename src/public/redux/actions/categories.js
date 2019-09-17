@@ -27,3 +27,10 @@ export const deleteCategory = (id) => {
         payload: Axios.delete(`http://localhost:3001/api/categories/${id}`)
     }
 }
+
+export const setDisplay = (status) => {
+    return{
+        type: 'SET_DISPLAY',
+        payload: status
+    }
+}

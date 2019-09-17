@@ -6,6 +6,7 @@ import wishlist from './wishlist';
 import cart from './cart';
 import transactions from './transactions';
 import items from './items';
+import user from './user';
 
 const Reducers = combineReducers({
     categories,
@@ -13,7 +14,8 @@ const Reducers = combineReducers({
     wishlist,
     cart,
     transactions,
-    items    
+    items,
+    user    
 })
 
 export default Reducers;

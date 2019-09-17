@@ -7,6 +7,29 @@ const initialState = {
   
   const branch = (state = initialState, action) => {
     switch (action.type) {
+      //GET_BRANCH/////////////////////////////////////////////////////////
+      case "GET_BRANCH_PENDING":
+        return {
+          ...state,
+          isLoading: true,
+          isRejected: false,
+          isFullfiled: false
+        };
+      case "GET_BRANCH_REJECTED":
+        return {
+          ...state,
+          isLoading: false,
+          isRejected: true
+        };
+      case "GET_BRANCH_FULFILLED":
+        return {
+          ...state,
+          isLoading: false,
+          isRejected: false,
+          isFullfiled: true,
+          branch: action.payload.data.response,
+        };
+
       //ADD_BRANCH///////////////////////////////////////////////////
       case "ADD_BRANCH_PENDING":
         return {
