@@ -19,14 +19,17 @@ class Header extends React.Component{
         user:{
             id:0
         },
+
         displayCategories:''
     }
 
-    // componentDidMount = async () => {
-    //     await this.setState({
-    //         user: this.props.user
-    //     })
-    // }
+    componentDidMount = async () => {
+        if(localStorage.getItem('user')){
+            await this.setState({
+                user: localStorage.getItem('user'),
+            })
+        }   
+    }
 
     home = () => {
         this.props.dispatch(setDisplay(true))
@@ -48,10 +51,22 @@ class Header extends React.Component{
         })
         
         await this.props.dispatch(login(this.state))
-        this.setState({user:this.props.user})
-        // window.location.href = '/';
-        this.setState({modal:false})
-        this.props.history.push('/');   
+        console.log(this.props.loginstatus);
+        if(this.props.user == null){
+            alert('Wrong email or password!');
+            this.setState({modal:false})
+        } else {
+            localStorage.setItem('user',this.props.user)
+            this.setState({user:this.props.user})
+            // window.location.href = '/';
+            this.setState({modal:false})
+            this.props.history.push('/');   
+        }   
+    }
+
+    logout = () => {
+        localStorage.removeItem('user');
+        window.location.href = '/';
     }
 
     toggle = () => {
@@ -64,26 +79,28 @@ class Header extends React.Component{
         return(
             <div className='header'> 
                 <img className='logo' alt='' onClick={this.home} />
-
-                <Link to={`/wishlist/${this.state.user.id}`}>
-                    <img className='wishlist' alt=''/>
-                </Link>
-               
-                <Link to={`/cart/${this.state.user.id}`}>
-                    <img className='cart' alt=''/>
-                </Link>
-
+                                        
+                {this.state.user.id != 0 ?( // eslint-disable-line
+                <div>
+                    <Link to={`/wishlist/${this.state.user.id}`}>
+                        <img className='wishlist' alt=''/>
+                    </Link>
+                
+                    <Link to={`/cart/${this.state.user.id}`}>
+                        <img className='cart' alt=''/>
+                    </Link>
+                </div>
+                ):null}
                 
                 {/* //modal/////////////////////////////////////////////////////////////////////////////////////////////// */}
                 <div>
-                    {/* <Button className='login-button' onClick={this.toggle}>Login</Button> */}
-                    {this.state.user.id == 0 ?(
+                    {this.state.user.id == 0 ?(         // eslint-disable-line
                         <Button className='login-button' onClick={this.toggle}>Login</Button>
                     ):
                     (
                     <div>
-                        {console.log(this.state.user)}
-                        <p className='user-name'>{this.state.user.name}</p>
+                        <p className='user-name'>Welcome {this.state.user.name}</p>
+                        <Button className='login-button' onClick={this.logout}>Logout</Button>
                     </div>
                     )
                 }
@@ -123,7 +140,8 @@ class Header extends React.Component{
 function mapStateToProps(state){
     return{
         displayCategories: state.categories.displayCategories,
-        user: state.user.user
+        user: state.user.user,
+        loginstatus: state.user
     }
 }
 

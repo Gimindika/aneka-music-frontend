@@ -65,17 +65,16 @@
 
   .user-name{
     position: absolute;
-    width: 90px;
-    height: 48px;
-    left: 90%;
+    width: 250px;
+    height: 70px;
+    left: 43.5%;
     top: 23px;
-    border: 1px solid black;
     border-radius: 10px;
 
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 30px;
     line-height: 40px;
     text-align: center;
     color: black;
