@@ -1,0 +1,22 @@
+import Axios from 'axios';
+
+export const getUserTransactions = (id) => {
+    return{
+        type: 'GET_USER_TRANSACTIONS',
+        payload: Axios.get(`http://localhost:3001/api/transactions/user/${id}`)
+    }
+}
+
+export const getTransactionsByMonth = (month) => {
+    return{
+        type: 'GET_TRANSACTIONS_BYMONTH',
+        payload: Axios.get(`http://localhost:3001/api/transactions/month/${month}`)
+    }
+}
+
+export const newTransaction = (id,data) => {
+    return{
+        type: 'NEW_TRANSACTIONS',
+        payload: Axios.post(`http://localhost:3001/api/transactions/${id}`, data)
+    }
+}
