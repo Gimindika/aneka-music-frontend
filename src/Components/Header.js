@@ -17,16 +17,24 @@ class Header extends React.Component{
         password:'',
 
         user:{
-            id:0
+            id:0,
+            name:'',
+            email:'',
+            level:0
         },
 
         displayCategories:''
     }
 
     componentDidMount = async () => {
-        if(localStorage.getItem('user')){
+        if(localStorage.getItem('userID')){
             await this.setState({
-                user: localStorage.getItem('user'),
+                    user:{
+                        id:localStorage.getItem('userID'),
+                        name:localStorage.getItem('userName'),
+                        email:localStorage.getItem('userEmail'),
+                        level:localStorage.getItem('userLevel'),
+                    },
             })
         }   
     }
@@ -34,8 +42,8 @@ class Header extends React.Component{
     home = () => {
         this.props.dispatch(setDisplay(true))
         this.setState({displayCategories:this.props.displayCategories})
-        // window.location.href = `/`;
-        this.props.history.push('/');
+        window.location.href = `/`;
+        // this.props.history.push('/');
     }
 
     inputHandler = (event) => {
@@ -51,21 +59,29 @@ class Header extends React.Component{
         })
         
         await this.props.dispatch(login(this.state))
-        console.log(this.props.loginstatus);
+      
         if(this.props.user == null){
             alert('Wrong email or password!');
             this.setState({modal:false})
         } else {
-            localStorage.setItem('user',this.props.user)
+            localStorage.setItem('userName',this.props.user.name)
+            localStorage.setItem('userID', this.props.user.id)
+            localStorage.setItem('userEmail', this.props.user.email)
+            localStorage.setItem('userLevel', this.props.user.level)
+            localStorage.setItem('token', this.props.token)
             this.setState({user:this.props.user})
-            // window.location.href = '/';
             this.setState({modal:false})
-            this.props.history.push('/');   
+            // this.props.history.push('/');  
+            window.location.href = '/'; 
         }   
     }
 
     logout = () => {
-        localStorage.removeItem('user');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userID');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userLevel');
+        localStorage.removeItem('token');
         window.location.href = '/';
     }
 
@@ -107,20 +123,22 @@ class Header extends React.Component{
 
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className='modal'>
 
-                    <h1 className='modal-header'>LOGIN</h1>
-
                     <ModalBody className='modal-body'>
 
-                    <Form className='form'>
+                    <Form className='form-login'>
                         <FormGroup>
-                            <Label for="email" className='label-login'>Product Name</Label>
+                            <div>
+                                <Label for="email" className='label-login'>Email : </Label>
+                            </div>
                             <Input type="text" name="email" id="email" className='input-login' onChange={this.inputHandler} placeholder='email'/>
                         </FormGroup>
 
                       
 
                         <FormGroup>
-                            <Label for="password" className='label-login'>Image URL</Label>
+                            <div>
+                                <Label for="password" className='label-login'>Password : </Label>
+                            </div>
                             <Input type="password" name="password" id="password" className='input-login' onChange={this.inputHandler} placeholder='password'/>
                         </FormGroup>
 
@@ -141,6 +159,7 @@ function mapStateToProps(state){
     return{
         displayCategories: state.categories.displayCategories,
         user: state.user.user,
+        token: state.user.token,
         loginstatus: state.user
     }
 }

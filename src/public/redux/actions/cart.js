@@ -7,10 +7,11 @@ export const getCart = (id) => {
     }
 }
 
-export const addCart = (data) => {
+export const addCart = (id,data) => {
+  
     return{
         type: 'ADD_CART',
-        payload: Axios.post('http://localhost:3001/api/cart/', data)
+        payload: Axios.post(`http://localhost:3001/api/cart/${id}`, data)
     }
 }
 
@@ -21,10 +22,10 @@ export const editCart = (id, data) => {
     }
 }
 
-export const deleteCart = (id) => {
+export const deleteCart = (id, itemID, branchID) => {
     return{
         type: 'DELETE_CART',
-        payload: Axios.delete(`http://localhost:3001/api/cart/${id}`)
+        payload: Axios.delete(`http://localhost:3001/api/cart/${id}/${itemID}/${branchID}`)
     }
 }
 

@@ -2,11 +2,18 @@ import React from 'react';
 import '../style/ItemDetail.css'
 import { connect } from 'react-redux';
 import { getItemDetails } from '../public/redux/actions/items';
+import { getWishlist, addWishlist, deleteWishlist } from '../public/redux/actions/wishlist';
+import { getCart, addCart } from '../public/redux/actions/cart';
 
 class ItemDetail extends React.Component{
     state={
+        user:{},
         itemDetails:{},
         itemstock:[],
+        cart:[],
+        wishlist:[],
+        isWishlisted: false,
+        isAddedtoCart: false,
         id:''
     }
 
@@ -14,9 +21,86 @@ class ItemDetail extends React.Component{
         const {match: {params}} = this.props;
         await this.setState({id:params.id});
 
+        this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+
         await this.props.dispatch(getItemDetails(this.state.id));
         await this.setState({itemDetails:this.props.itemDetails})
         await this.setState({itemstock:this.state.itemDetails.itemstock})
+
+        //wishlist//////////////////////////////////////////////////////////
+        await this.props.dispatch(getWishlist(this.state.user.id));
+        await this.setState({wishlist:this.props.wishlist})
+
+        this.state.wishlist.map(item => {
+            if(this.state.id == item.id){ // eslint-disable-line
+                this.setState({isWishlisted:true})
+            }
+            return null;
+        })
+
+        //cart///////////////////////////////////////////////////////
+        await this.props.dispatch(getCart(this.state.user.id));
+        await this.setState({cart:this.props.cart}) 
+        
+    }
+
+    //wishlist//////////////////////////////////////////////////////
+    addRemoveWishlist = async (user, item, command) => {
+        if(command == 'add'){ // eslint-disable-line
+            await this.props.dispatch(addWishlist(user, item));
+            await this.setState({
+                wishlist:this.props.wishlist,
+                isWishlisted:true
+            });
+        } else if(command == 'remove') { // eslint-disable-line
+            await this.props.dispatch(deleteWishlist(user, item));
+            await this.setState({
+                wishlist:this.props.wishlist,
+                isWishlisted:false
+            });
+        }
+    }
+
+    //cart///////////////////////////////////////////////////////////
+    addToCart = async (user, itemID, item, branchID, branch, price, quantity) => {
+        await this.state.cart.map( (cartitem) => {
+            if(cartitem != undefined){ // eslint-disable-line
+                if (item == cartitem.item && branch == cartitem.branch){ // eslint-disable-line
+                this.setState({isAddedtoCart:true});
+                }
+            }  
+            return null;      
+        })
+        
+        
+        if(!this.state.isAddedtoCart){
+            const data = {
+                itemID,
+                item,
+                price,
+                branchID,
+                branch,
+                quantity
+            }
+            await this.props.dispatch(addCart(user,data))
+            await this.setState({
+                cart:this.props.cart,
+                isAddedtoCart:true
+            });
+            alert('Item has been added to cart.')
+            // window.location.reload();
+        } else {
+            alert('The item is ready, go to checkout.')
+            this.setState({isAddedtoCart:false});
+        }
     }
 
     render(){
@@ -29,7 +113,7 @@ class ItemDetail extends React.Component{
             
                 {/* <EditModal ID={this.state.ID}/> */}
                 
-                <button className='delete-button'>Delete</button>
+                <button className='delete-button'>Delete </button>
 
                 <p className='item-detail-desc'>{this.state.itemDetails.description}</p>
 
@@ -38,9 +122,25 @@ class ItemDetail extends React.Component{
                     <ul>
                         {this.state.itemstock.map((stock,index) => 
                         <li className='available-list' key={index}>
-                            {stock.branch} : {stock.quantity} unit(s) for Rp. {stock.price} each
+                            <div>
+                                {stock.branch} : {stock.quantity} unit(s) for Rp. {stock.price} each.
+                            </div>
+                            <span className='addtocart-span' onClick={() => {this.addToCart(this.state.user.id, this.state.id, this.state.itemDetails.name, stock.branchID, stock.branch, stock.price, 1)}}>Add to cart <img className='addto-cart' alt=''/></span>
                         </li>)}
                     </ul>
+                </div>
+
+                <div>
+                    {this.state.isWishlisted ? 
+                        <div>
+                            <img className='wishlist-full' onClick={() => this.addRemoveWishlist(this.state.user.id, this.state.id, 'remove')} alt=''/>
+                        </div>
+                        :
+                        <div>
+                            <img className='wishlist-empty' onClick={() => this.addRemoveWishlist(this.state.user.id, this.state.id, 'add')} alt=''/>
+                        </div>
+                    }
+                    
                 </div>
             </div>
         )
@@ -48,10 +148,10 @@ class ItemDetail extends React.Component{
 }
 
 function mapStateToProps(state){
-    console.log(state.user);
-    
     return{
         itemDetails: state.items.itemDetails,
+        cart:state.cart.cart,
+        wishlist: state.wishlist.wishlist
     }
 }
 

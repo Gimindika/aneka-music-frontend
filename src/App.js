@@ -11,8 +11,8 @@ import ItemDetails from './Pages/ItemDetails';
 import ContentList from './Pages/ContentList';
 import Wihslist from './Pages/Wishlist';
 import Cart from './Pages/Cart';
-
-import Login from './Pages/Login';
+import Transactions from './Pages/Transactions';
+import TransactionsByMonth from './Pages/TransactionsByMonth';
 
 function App() {
   return (
@@ -32,13 +32,12 @@ function App() {
                   {/* <Route exact path='/' component={Categories}/> */}
                   {/* <Route path='/items/:id' component={ItemList}/> */}
                   <Route exact path='/' component={ContentList}/>
-                  <Route exact path='/login' component={Login}/>
                   {/* <Route path='/items/:id' component={ContentList}/> */}
                   <Route path='/itemDetails/:id' component={ItemDetails}/>
                   <Route path='/wishlist/:id' component={Wihslist}/>
                   <Route path='/cart/:id' component={Cart}/>
-                  {/* <Route path='/itemName/:ItemName' component={SearchItem}/> */}
-
+                  <Route path='/transaction/:id' component={Transactions}/>
+                  <Route path='/transactionbymonth/:month' component={TransactionsByMonth}/>
                   
 
                 </Switch>

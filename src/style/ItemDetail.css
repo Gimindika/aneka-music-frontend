@@ -128,3 +128,46 @@ width: 10px;
     line-height: 45px;
     text-align: left;
 }
+
+.wishlist-full{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 82%;
+    top: 0px;
+  
+    background: url(../imgs/wishlist-full.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.wishlist-empty{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 82%;
+    top: 0px;
+  
+    background: url(../imgs/wishlist-empty.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.addto-cart{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    left: 0px;
+    top: 5px;
+
+    background: url(../imgs//cart.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.addtocart-span{
+    position: relative;
+    top:-45px;
+    left: 550px;
+    font-size: 20px;
+}

@@ -7,16 +7,16 @@ export const getWishlist = (id) => {
     }
 }
 
-export const addWishlist = (data) => {
+export const addWishlist = (user, item) => {
     return{
         type: 'ADD_WISHLIST',
-        payload: Axios.post('http://localhost:3001/api/wishlist/', data)
+        payload: Axios.post(`http://localhost:3001/api/wishlist/${user}/${item}`)
     }
 }
 
-export const deleteWishlist = (id) => {
+export const deleteWishlist = (user, item) => {
     return{
         type: 'DELETE_WISHLIST',
-        payload: Axios.delete(`http://localhost:3001/api/wishlist/${id}`)
+        payload: Axios.delete(`http://localhost:3001/api/wishlist/${user}/${item}`)
     }
 }

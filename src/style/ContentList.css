@@ -1,0 +1,46 @@
+.button-container{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: 110px;
+    left: 1450px;
+}
+
+.additem-button{
+    
+    width: 180px;
+    height: 40px;
+    font-size: 15px;
+
+    background-color: white;
+    border: 1px solid #F5D372;
+    color: #F5D372;
+    border-radius: 10px;
+}
+
+.additem-button:hover {
+    background-color: #F5D372;
+    color: white;
+}
+
+.categorybranch-button{
+    margin: 10px 0px;
+    width: 180px;
+    height: 40px;
+    font-size: 15px;
+
+    background-color: white;
+    border: 1px solid #F5D372;
+    color: #F5D372;
+    border-radius: 10px;
+}
+
+.categorybranch-button:hover {
+    background-color: #F5D372;
+    color: white;
+}
+
+.transactions-month{
+    margin-top: 10px;   
+    font-size: 18px;
+}

@@ -21,13 +21,20 @@ const initialState = {
           isLoading: false,
           isRejected: true
         };
-      case "GET_CART_FULFILLED":
+      case "GET_CART_FULFILLED": 
+        const data = [];
+        action.payload.data.response.map((item, index) => {
+          if(index < action.payload.data.response.length){
+            data.push(item);
+          }
+          return null;
+        })
         return {
           ...state,
           isLoading: false,
           isRejected: false,
           isFullfiled: true,
-          cart: action.payload.data.response,
+          cart: data,
         };
   
       //ADD_CART///////////////////////////////////////////////////
@@ -69,9 +76,13 @@ const initialState = {
           isRejected: true
         };
       case "EDIT_CART_FULFILLED":
+     
         const dataAfterEdit = state.cart.map(item => {                    // eslint-disable-next-line
-            if(item.id == action.payload.data.data.id){ 
-                return action.payload.data.data;
+            if(item.id == action.payload.data.data.id && item.branch == action.payload.data.data.branch){
+                return {
+                  ...item,
+                  quantity: action.payload.data.data.quantity
+                } 
             }
             return item;
         })
@@ -98,8 +109,15 @@ const initialState = {
           isLoading: false,
           isRejected: true
         };
-      case "DELETE_CART_FULFILLED":                                             // eslint-disable-next-line
-        const dataAfterDelete = state.cart.filter(item => item.id != action.payload.data.data.id);
+      case "DELETE_CART_FULFILLED":                          
+        const dataAfterDelete = []; 
+        state.cart.map(item => {                    // eslint-disable-next-line
+          if(!(item.itemID == action.payload.data.data.item && item.branchID == action.payload.data.data.branch)){
+            dataAfterDelete.push(item)
+          }
+          return null
+        })
+      
         return {
           ...state,
           isLoading: false,

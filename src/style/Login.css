@@ -1,26 +1,15 @@
-
-.form-login{
-    position: relative;
-    top: 200px;
-    left: 450px;
-
-    height: 400px;
-    width: 400px;
-
-    padding: 100px;
-}
-
-.form-title{
-    margin-bottom: 30px;
-    margin-left: 60px;
-}
-
 .label-login{
-    font-size: 25px;
+    position: relative;
+    left: 170px;
+    font-size: 15px;
 }
 
 .input-login{
-    font-size: 25px;
+    position: relative;
+    left: 170px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .submit-login{
@@ -30,4 +19,33 @@
     width: 80px;
     height: 40px;
     font-size: 20px;
+
+    background-color: white;
+    border: 1px solid #F5D372;
+    color: #F5D372;
+    border-radius: 10px;
+}
+
+.submit-login:hover {
+    background-color: #F5D372;
+    color: white;
+}
+
+.cancel-button{
+    position: relative;
+    margin-top:20px;
+    left: 200px;
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+
+    background-color: white;
+    border: 1px solid #F5D372;
+    color: #F5D372;
+    border-radius: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #F5D372;
+    color: white;
 }
