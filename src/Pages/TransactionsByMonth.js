@@ -55,7 +55,7 @@ class TransactionsByMonth extends React.Component{
                                                         <td>{item.name}</td>
                                                         <td className='branch-label'>({item.branch})</td>
                                                         <tr>
-                                                            <td>{item.quantity}</td>
+                                                            <td>{item.quantity} unit(s) </td>
                                                             <td>Rp. {item.price}</td>
                                                         </tr>
                                                 </div>

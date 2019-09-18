@@ -13,6 +13,7 @@ import Wihslist from './Pages/Wishlist';
 import Cart from './Pages/Cart';
 import Transactions from './Pages/Transactions';
 import TransactionsByMonth from './Pages/TransactionsByMonth';
+import AddItem from './Pages/AddItem';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
                   <Route path='/cart/:id' component={Cart}/>
                   <Route path='/transaction/:id' component={Transactions}/>
                   <Route path='/transactionbymonth/:month' component={TransactionsByMonth}/>
-                  
+                  <Route path='/additem' component={AddItem}/>
 
                 </Switch>
             </div>

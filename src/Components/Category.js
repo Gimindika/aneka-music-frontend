@@ -1,6 +1,5 @@
 import React from 'react';
 import '../style/Category.css';
-// import {Link} from 'react-router-dom';
 
 class Category extends React.Component{
     constructor(props){
@@ -14,12 +13,12 @@ class Category extends React.Component{
 
     render(){
         return(
-            // <Link to={`/items/${this.state.id}`}>
+       
                 <div className='category-card' onClick={() => this.props.displayItems(this.state.id)}>
                     <p className='category-name'>{this.state.name}</p>
                     <img className='category-img' src={this.state.image} alt='Category'></img>
                 </div>
-            // </Link>
+        
         )
     }
 }

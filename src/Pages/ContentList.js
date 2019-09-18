@@ -23,6 +23,8 @@ class ContentList extends React.Component{
             categories:this.props.categories,
             displayCategories: this.props.displayCategories
         })
+        console.log(this.state.categories);
+        
         this.setState({
             user:{
                 id:localStorage.getItem('userID'),
@@ -104,22 +106,22 @@ class ContentList extends React.Component{
 
                         {this.state.user.level == 2 ? ( // eslint-disable-line
                         <div>
-                            <button className='additem-button'>Add Item</button> 
+                            <Link to={'/additem'}><button className='additem-button'>Add Item</button></Link>
                             <button className='categorybranch-button'>Category & Branch</button>
 
                             <p className='transactions-month'> Transactions By Month</p>
                             <Link to={`/transactionbymonth/1`}><button className='additem-button' id={1}>Jan</button></Link>
-                            <button className='additem-button' id={2}>Feb</button>
-                            <button className='additem-button' id={3}>Mar</button>
-                            <button className='additem-button' id={4}>Apr</button>
-                            <button className='additem-button' id={5}>May</button>
-                            <button className='additem-button' id={6}>Jun</button>
-                            <button className='additem-button' id={7}>Jul</button>
-                            <button className='additem-button' id={8}>Aug</button>
+                            <Link to={`/transactionbymonth/2`}><button className='additem-button' id={2}>Feb</button></Link>
+                            <Link to={`/transactionbymonth/3`}><button className='additem-button' id={3}>Mar</button></Link>
+                            <Link to={`/transactionbymonth/4`}><button className='additem-button' id={4}>Apr</button></Link>
+                            <Link to={`/transactionbymonth/5`}><button className='additem-button' id={5}>May</button></Link>
+                            <Link to={`/transactionbymonth/6`}><button className='additem-button' id={6}>Jun</button></Link>
+                            <Link to={`/transactionbymonth/7`}><button className='additem-button' id={7}>Jul</button></Link>
+                            <Link to={`/transactionbymonth/8`}><button className='additem-button' id={8}>Aug</button></Link>
                             <Link to={`/transactionbymonth/9`}><button className='additem-button' id={9}>Sep</button></Link>
-                            <button className='additem-button' id={10}>Oct</button>
-                            <button className='additem-button' id={11}>Nov</button>
-                            <button className='additem-button' id={12}>Dec</button>
+                            <Link to={`/transactionbymonth/10`}><button className='additem-button' id={10}>Oct</button></Link>
+                            <Link to={`/transactionbymonth/11`}><button className='additem-button' id={11}>Nov</button></Link>
+                            <Link to={`/transactionbymonth/12`}><button className='additem-button' id={12}>Dec</button></Link>
                         </div>
                         )
                         :null}
