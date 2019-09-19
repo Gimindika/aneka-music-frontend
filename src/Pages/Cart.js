@@ -7,6 +7,7 @@ import { newTransaction } from '../public/redux/actions/transactions';
 
 import Receipt from '../Components/Receipt';
 import ReactToPrint from 'react-to-print';
+import Swal from 'sweetalert2';
 
 
 class Cart extends React.Component{
@@ -81,7 +82,13 @@ class Cart extends React.Component{
         }
 
         this.props.dispatch(newTransaction(this.state.user.id, data));
-        alert('transaction success')
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'transaction success \n You may print the receipt',
+            showConfirmButton: false,
+            timer: 800
+        })
         this.setState({receipt:true})
     }
 

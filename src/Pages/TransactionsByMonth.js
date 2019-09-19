@@ -42,7 +42,7 @@ class TransactionsByMonth extends React.Component{
                         <table className='cart-table'>
                             <tbody>
                             {this.state.transactionsByMonth.map((transaction,index) =>   
-                                <div>
+                                <div style={{marginBottom:'50px'}}>
                                 <tr key={index}>
                                     <td>{this.convertTimeStamp(transaction.date)}</td>
                                 </tr>

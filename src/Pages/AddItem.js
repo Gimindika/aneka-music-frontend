@@ -5,6 +5,7 @@ import {addItem} from '../public/redux/actions/items';
 import {getBranch} from '../public/redux/actions/branch';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../style/AddItem.css'; 
+import Swal from 'sweetalert2';
 
 
 class AddItem extends React.Component{
@@ -79,8 +80,16 @@ class AddItem extends React.Component{
         
         
         this.props.dispatch(addItem(data));
-        alert('Item has been added.')
-        window.location.reload();
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Item is successfully added.',
+            showConfirmButton: false,
+            timer: 800
+        })
+        setInterval(() => {
+            window.location.reload();
+        }, 800);
     }
 
     render(){

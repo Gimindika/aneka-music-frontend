@@ -13,7 +13,7 @@ import Transactions from './Pages/Transactions';
 import TransactionsByMonth from './Pages/TransactionsByMonth';
 import AddItem from './Pages/AddItem';
 import EditItem from './Pages/EditItem';
-
+import CategoriesBranch from './Pages/CategoriesBranch';
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
                   <Route path='/transactionbymonth/:month' component={TransactionsByMonth}/>
                   <Route path='/additem' component={AddItem}/>
                   <Route path='/edititem/:id' component={EditItem}/>
+                  <Route path='/categoriesbranch' component={CategoriesBranch}/>
                 </Switch>
             </div>
           </div>

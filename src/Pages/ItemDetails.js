@@ -5,6 +5,7 @@ import { getItemDetails, deleteItem } from '../public/redux/actions/items';
 import { getWishlist, addWishlist, deleteWishlist } from '../public/redux/actions/wishlist';
 import { getCart, addCart } from '../public/redux/actions/cart';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 class ItemDetail extends React.Component{
     state={
@@ -98,19 +99,39 @@ class ItemDetail extends React.Component{
                 cart:this.props.cart,
                 isAddedtoCart:true
             });
-            alert('Item has been added to cart.')
-            // window.location.reload();
+            
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Item has been added to cart.',
+                showConfirmButton: false,
+                timer: 800
+              })
         } else {
-            alert('The item is ready, go to checkout.')
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'The item is ready, go to checkout.',
+                showConfirmButton: false,
+                timer: 800
+              })
             this.setState({isAddedtoCart:false});
         }
     }
 
     deleteItem = () => {
         this.props.dispatch(deleteItem(this.state.id));
-        alert('Item has been deleted.')
-        // this.props.history.push('/');
-        window.location.href = '/';
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Item has been deleted.',
+            showConfirmButton: false,
+            timer: 800
+        })
+        setInterval(() => {
+            window.location.href = '/';
+            // this.props.history.push('/');
+        }, 800);
     }
 
     render(){

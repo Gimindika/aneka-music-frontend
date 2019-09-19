@@ -5,6 +5,7 @@ import {getItemDetails,editItem} from '../public/redux/actions/items';
 import {getBranch} from '../public/redux/actions/branch';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../style/AddItem.css'; 
+import Swal from 'sweetalert2';
 
 
 class EditItem extends React.Component{
@@ -118,9 +119,19 @@ class EditItem extends React.Component{
         console.log(data);
         
         this.props.dispatch(editItem(this.state.id,data));
-        alert('Item has been edited.')
-        window.location.href = `/itemDetails/${this.state.id}`;
-        // this.props.history.push(`/itemDetails/${this.state.id}`)
+        
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Item is successfully updated.',
+            showConfirmButton: false,
+            timer: 800
+        })
+        setInterval(() => {
+            window.location.href = `/itemDetails/${this.state.id}`;
+            // this.props.history.push(`/itemDetails/${this.state.id}`)
+        }, 800);
+        
     }
 
     render(){
