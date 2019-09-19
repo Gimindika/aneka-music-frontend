@@ -1,9 +1,10 @@
 import React from 'react';
 import '../style/ItemDetail.css'
 import { connect } from 'react-redux';
-import { getItemDetails } from '../public/redux/actions/items';
+import { getItemDetails, deleteItem } from '../public/redux/actions/items';
 import { getWishlist, addWishlist, deleteWishlist } from '../public/redux/actions/wishlist';
 import { getCart, addCart } from '../public/redux/actions/cart';
+import { Link } from 'react-router-dom';
 
 class ItemDetail extends React.Component{
     state={
@@ -103,6 +104,13 @@ class ItemDetail extends React.Component{
         }
     }
 
+    deleteItem = () => {
+        this.props.dispatch(deleteItem(this.state.id));
+        alert('Item has been deleted.')
+        // this.props.history.push('/');
+        window.location.href = '/';
+    }
+
     render(){
          return(
             <div className='content-item-detail'>
@@ -112,8 +120,13 @@ class ItemDetail extends React.Component{
                 <p className='item-detail-category'>Category : {this.state.itemDetails.category}</p>
             
                 {/* <EditModal ID={this.state.ID}/> */}
+                {this.state.user.level == 2 ? (
+                    <div>
+                        <button className='delete-button' onClick={this.deleteItem}>Delete </button>
+                        <Link to={`/edititem/${this.state.id}`}><button className='edit-button'>Edit </button></Link>
+                    </div>
+                ):null}
                 
-                <button className='delete-button'>Delete </button>
 
                 <p className='item-detail-desc'>{this.state.itemDetails.description}</p>
 
@@ -129,8 +142,9 @@ class ItemDetail extends React.Component{
                         </li>)}
                     </ul>
                 </div>
-
-                <div>
+                
+                {this.state.user.level > 0 ? (
+                    <div>
                     {this.state.isWishlisted ? 
                         <div>
                             <img className='wishlist-full' onClick={() => this.addRemoveWishlist(this.state.user.id, this.state.id, 'remove')} alt=''/>
@@ -140,8 +154,9 @@ class ItemDetail extends React.Component{
                             <img className='wishlist-empty' onClick={() => this.addRemoveWishlist(this.state.user.id, this.state.id, 'add')} alt=''/>
                         </div>
                     }
-                    
-                </div>
+                    </div>
+                ) :null}
+                
             </div>
         )
     }

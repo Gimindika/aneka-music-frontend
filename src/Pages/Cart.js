@@ -75,7 +75,6 @@ class Cart extends React.Component{
             transactionitems: [...tmp]
         }
 
-        console.log('data',data);
         this.props.dispatch(newTransaction(this.state.user.id, data));
         alert('transaction success')
     }

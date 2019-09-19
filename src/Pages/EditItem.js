@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {getCategories} from '../public/redux/actions/categories';
-import {addItem} from '../public/redux/actions/items';
+import {getItemDetails,editItem} from '../public/redux/actions/items';
 import {getBranch} from '../public/redux/actions/branch';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../style/AddItem.css'; 
 
 
-class AddItem extends React.Component{
+class EditItem extends React.Component{
     state={
         branchList:[],
         categoryList:[],
@@ -16,7 +16,8 @@ class AddItem extends React.Component{
         image:'',
         description:'',
         category:'',
-        itemstock:[]
+        itemstock:[],
+        id:''
     }
 
     componentDidMount = async () => {
@@ -27,16 +28,49 @@ class AddItem extends React.Component{
         await this.props.dispatch(getBranch())
         await this.setState({branchList:this.props.branch})
 
+        const {match: {params}} = this.props;
+        this.setState({id:params.id});
+        await this.props.dispatch(getItemDetails(params.id));
+        await this.setState({
+            name:this.props.itemDetails.name,
+            image:this.props.itemDetails.image,
+            description:this.props.itemDetails.description,
+            category:this.props.itemDetails.categoryID,
+        })
+        await this.setState({itemstock:this.props.itemDetails.itemstock})
+        
         const tmp = [];
         this.state.branchList.map(bran => {
-            tmp.push({
-                branch:bran.id,
-                price:0,
-                quantity:0
+            let found=false;
+            this.state.itemstock.map(item => {
+                if(bran.id == item.branchID){
+                    found=true; 
+                    tmp.push({
+                        location:bran.location,
+                        branch:item.branchID,
+                        price:item.price,
+                        quantity:item.quantity
+                    })  
+                } 
             })
+
+            if(!found){
+                tmp.push({
+                    location:bran.location,
+                    branch:bran.id,
+                    price:0,
+                    quantity:0
+                })
+            }
+
             return null;
         })
-        this.setState({itemstock:tmp})
+        // console.log('asd',tmp);
+        
+        this.setState({
+            branchList:tmp,
+            itemstock:tmp
+        })
     }
 
     inputHandler = (event) => {
@@ -44,6 +78,8 @@ class AddItem extends React.Component{
     }
 
     inputStockHandler = (event) => {
+        // console.log('st',this.state.itemstock);
+        
         const tmp = [];
         this.state.itemstock.map(i => {
             if(i.branch == event.target.id){// eslint-disable-line
@@ -54,6 +90,8 @@ class AddItem extends React.Component{
             } else {
                 tmp.push(i)
             }
+            // console.log('tmo', tmp);
+            
             this.setState({itemstock:tmp})
             
             return null;
@@ -70,17 +108,19 @@ class AddItem extends React.Component{
         })
 
         const data ={
-            name:this.state.name[0],
+            name:this.state.name,
             category:this.state.category,
-            description:this.state.description[0],
-            image:this.state.image[0],
+            description:this.state.description,
+            image:this.state.image,
             itemstock:tmpStock
         }
         
+        console.log(data);
         
-        this.props.dispatch(addItem(data));
-        alert('Item has been added.')
-        window.location.reload();
+        this.props.dispatch(editItem(this.state.id,data));
+        alert('Item has been edited.')
+        window.location.href = `/itemDetails/${this.state.id}`;
+        // this.props.history.push(`/itemDetails/${this.state.id}`)
     }
 
     render(){
@@ -90,12 +130,12 @@ class AddItem extends React.Component{
                 
                     <FormGroup>
                         <Label for="ItemName" className='nameadd-label'>Product Name</Label>
-                        <Input type="text" name="name" id="ItemName" className='nameadd-input' onChange={this.inputHandler}/>
+                        <Input type="text" name="name" id="ItemName" className='nameadd-input' placeholder={this.state.name} onChange={this.inputHandler}/>
                     </FormGroup>
                 
                 <FormGroup>
                     <Label for="category" className='cathegory-label'>Category</Label>
-                    <Input type="select" name="category" id="category" className='cathegory-input' onChange={this.inputHandler}>
+                    <Input type="select" name="category" id="category" className='cathegory-input' value={this.state.category} onChange={this.inputHandler}>
                         {this.state.categoryList.map(cate => 
                                 <option key={cate.id} value={cate.id} >{cate.name}</option>
                         )}
@@ -105,7 +145,7 @@ class AddItem extends React.Component{
 
                 <FormGroup>
                     <Label for="imgURL" className='image-label'>Image URL</Label>
-                    <Input type="text" name="image" id="imgURL" className='image-input' onChange={this.inputHandler}/>
+                    <Input type="text" name="image" id="imgURL" className='image-input' placeholder={this.state.image} onChange={this.inputHandler}/>
                 </FormGroup>
 
                 {/*//spread  */}
@@ -120,8 +160,9 @@ class AddItem extends React.Component{
                                 <div className='branch-container' key={index}>
                                     <Label>{bran.location}</Label>
                                     <div className='quantityprice-container'>
-                                        <Input id={bran.id} name='quantity' className='quantity-input' onChange={this.inputStockHandler}/>
-                                        <Input id={bran.id} name='price' className='price-input' onChange={this.inputStockHandler}/>
+                                      
+                                        <Input id={bran.branch} placeholder={bran.quantity} name='quantity' className='quantity-input' onChange={this.inputStockHandler}/>
+                                        <Input id={bran.branch} placeholder={bran.price} name='price' className='price-input' onChange={this.inputStockHandler}/>
                                     </div>
                                 </div>
                             )
@@ -134,11 +175,12 @@ class AddItem extends React.Component{
 
                 <FormGroup>
                     <Label for="ItemDesc" className='description-label'>Description</Label>
-                    <Input type="textarea" name="description" id="ItemDesc" className='description-input' onChange={this.inputHandler}/>
+                    <Input type="textarea" name="description" id="ItemDesc" className='description-input' placeholder={this.state.description} onChange={this.inputHandler}/>
                 </FormGroup>
 
+                <Button className='cancel-button' onClick={this.toggle}>Cancel</Button>
               <Button style={{marginTop:'18px'}} type="button" className='add-button-submit' onClick={this.handleSubmit
-        }>Add</Button>
+        }>Edit</Button>
             </Form>
         </div> 
         )
@@ -146,9 +188,10 @@ class AddItem extends React.Component{
 }
 function mapStateToProps(state){
     return{
+        itemDetails: state.items.itemDetails,
         branch: state.branch.branch,
         categories:state.categories.categories,
     }
 }
 
-export default connect(mapStateToProps)(AddItem);
+export default connect(mapStateToProps)(EditItem);

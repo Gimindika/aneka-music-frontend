@@ -78,6 +78,23 @@ width: 10px;
     border-radius: 10px;
 }
 
+.edit-button{
+    position: absolute;
+    width: 114px;
+    height: 28px;
+    left: 88%;
+    top: 30px;;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: black;
+
+    background: #F5D372;
+    border-radius: 10px;
+} 
+
 .item-detail-desc{
     position: absolute;
     width: 750px;

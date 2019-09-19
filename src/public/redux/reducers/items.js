@@ -164,7 +164,10 @@ const initialState = {
           isLoading: false,
           isRejected: true
         };
-      case "DELETE_ITEM_FULFILLED":                                             // eslint-disable-next-line
+      case "DELETE_ITEM_FULFILLED":               
+      console.log(action.payload.data.data);
+      
+                                    // eslint-disable-next-line
         const dataAfterDelete = state.items.filter(item => item.id != action.payload.data.data.id);
         return {
           ...state,

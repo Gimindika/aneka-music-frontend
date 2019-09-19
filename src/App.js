@@ -5,8 +5,6 @@ import { BrowserRouter, Route, Switch  } from 'react-router-dom';
 
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-// import Categories from './Pages/Categories';
-// import ItemList from './Pages/ItemList';
 import ItemDetails from './Pages/ItemDetails';
 import ContentList from './Pages/ContentList';
 import Wihslist from './Pages/Wishlist';
@@ -14,6 +12,8 @@ import Cart from './Pages/Cart';
 import Transactions from './Pages/Transactions';
 import TransactionsByMonth from './Pages/TransactionsByMonth';
 import AddItem from './Pages/AddItem';
+import EditItem from './Pages/EditItem';
+
 
 function App() {
   return (
@@ -21,29 +21,19 @@ function App() {
           <Header />
 
           <div className='main-container'>
-            
-
-            {/* Add button & modal */}
-            {/* <AddModal displayCathegory={this.displayCathegory}/> */}
-
-            {/* content */}
             <div>  
-                {/* Pages Routes */}
                 <Switch>
-                  {/* <Route exact path='/' component={Categories}/> */}
-                  {/* <Route path='/items/:id' component={ItemList}/> */}
                   <Route exact path='/' component={ContentList}/>
-                  {/* <Route path='/items/:id' component={ContentList}/> */}
                   <Route path='/itemDetails/:id' component={ItemDetails}/>
                   <Route path='/wishlist/:id' component={Wihslist}/>
                   <Route path='/cart/:id' component={Cart}/>
                   <Route path='/transaction/:id' component={Transactions}/>
                   <Route path='/transactionbymonth/:month' component={TransactionsByMonth}/>
                   <Route path='/additem' component={AddItem}/>
-
+                  <Route path='/edititem/:id' component={EditItem}/>
                 </Switch>
             </div>
-          </div>{/* main content div */}
+          </div>
           
           <Footer />
         </BrowserRouter>
