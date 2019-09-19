@@ -11,6 +11,7 @@ import { getCart} from './public/redux/actions/cart';
 import { getWishlist } from './public/redux/actions/wishlist';
 import { getBranch } from './public/redux/actions/branch';
 import { getUserTransactions, getTransactionsByMonth } from './public/redux/actions/transactions';
+import Receipt from './Components/Receipt';
 
 class Test extends React.Component{
     state={
@@ -75,7 +76,8 @@ class Test extends React.Component{
     render(){
       return(
           <div>
-              {this.state.categories.map(category => {
+            <Receipt></Receipt>
+              {/* {this.state.categories.map(category => {
                 return(
                   <div key={category.id}>
                     <p>{category.id + ' '+category.name}</p>
@@ -96,17 +98,6 @@ class Test extends React.Component{
                 <p>{this.state.itemDetails.id + ' '+this.state.itemDetails.description}</p>
               </div>
 
-              {/* <div>
-              {this.state.items.length !== 0 ?
-                  (<div className='content'> 
-                      {this.state.items.map(item => <Item item={item} key={item.id}/>)}
-                  </div>)
-                  :
-                  (<div className='content'> 
-                      <h1>Oops, no items in this category yet.</h1>
-                  </div>)    
-              }
-              </div> */}
 
               <div>
                 <p>{this.state.user.name}</p>
@@ -137,7 +128,7 @@ class Test extends React.Component{
                   <p>{'branch : ' + aBranch.id + ' ' + aBranch.location}</p>
                 </div>
                 )
-              })}
+              })} */}
           </div>
       )
     } 

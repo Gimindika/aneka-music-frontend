@@ -91,7 +91,9 @@ class ItemDetail extends React.Component{
                 branch,
                 quantity
             }
+            
             await this.props.dispatch(addCart(user,data))
+            console.log('ca', user, data);
             await this.setState({
                 cart:this.props.cart,
                 isAddedtoCart:true

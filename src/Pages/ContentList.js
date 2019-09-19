@@ -23,7 +23,6 @@ class ContentList extends React.Component{
             categories:this.props.categories,
             displayCategories: this.props.displayCategories
         })
-        console.log(this.state.categories);
         
         this.setState({
             user:{

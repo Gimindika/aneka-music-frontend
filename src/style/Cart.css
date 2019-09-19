@@ -80,9 +80,36 @@
     background-color: #F5D372;;
 }
 
+.printreceipt-button{
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 180px;
+    height: 60px;
+    font-size: 25px;
+
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    border-radius: 10px;
+}
+
+.printreceipt-button:hover {
+    background-color: #F5D372;;
+}
+
 .totalprice{
     position: relative;
     left: 0px;
     padding: 15px;
     padding-left: 0px;
+}
+
+.checkoutbutton-container{
+    top: 0px;
+    left: 0px;
+    position: relative;
+}
+
+.receipt-container{
+    padding:30px;
 }

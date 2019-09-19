@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { getCart, editCart, deleteCart } from '../public/redux/actions/cart';
 import { newTransaction } from '../public/redux/actions/transactions';
 
+import Receipt from '../Components/Receipt';
+import ReactToPrint from 'react-to-print';
+
 
 class Cart extends React.Component{
     constructor(props){
@@ -12,7 +15,9 @@ class Cart extends React.Component{
         this.state = {
             cart:[],
             user:{},
-            total:0
+            total:0,
+
+            receipt:false
         }
     }
 
@@ -77,6 +82,7 @@ class Cart extends React.Component{
 
         this.props.dispatch(newTransaction(this.state.user.id, data));
         alert('transaction success')
+        this.setState({receipt:true})
     }
 
     render(){
@@ -112,17 +118,30 @@ class Cart extends React.Component{
                                     <td></td>
                                     <td></td>
 
-                                    <td className='totalprice'>Rp. {this.total()}</td>
+                                    <td>Rp. {this.total()}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
 
-                    <div>
+                    <div className='checkoutbutton-container'>
                         <button className='checkout-button' onClick={() => this.handleCheckout()}>Checkout</button>
+                        {this.state.receipt ? (
+                        <ReactToPrint
+                            trigger={() => <button className='printreceipt-button'>Print</button>}
+                            content={() => this.componentRef}
+                        />
+                        ) :null}
                     </div>
+
                     
+                    
+                    {this.state.receipt ? (
+                        <div>
+                            <Receipt transaction={this.state.cart} ref={el => (this.componentRef = el)}></Receipt>
+                        </div>
+                    ) :null}
                         
                     </div>)
                     :
