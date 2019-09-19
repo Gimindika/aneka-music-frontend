@@ -18,10 +18,26 @@ class EditItem extends React.Component{
         description:'',
         category:'',
         itemstock:[],
-        id:''
+        id:'',
+
+        user:{},
+        token:'',
+        header:''
     }
 
     componentDidMount = async () => {
+        await this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
         await this.props.dispatch(getCategories())
         await this.setState({categoryList:this.props.categories})
         this.setState({category:this.state.categoryList[0].id})
@@ -43,8 +59,8 @@ class EditItem extends React.Component{
         const tmp = [];
         this.state.branchList.map(bran => {
             let found=false;
-            this.state.itemstock.map(item => {
-                if(bran.id == item.branchID){
+            this.state.itemstock.map(item => { 
+                if(bran.id == item.branchID){ // eslint-disable-line
                     found=true; 
                     tmp.push({
                         location:bran.location,
@@ -53,6 +69,7 @@ class EditItem extends React.Component{
                         quantity:item.quantity
                     })  
                 } 
+                return null;
             })
 
             if(!found){
@@ -118,7 +135,7 @@ class EditItem extends React.Component{
         
         console.log(data);
         
-        this.props.dispatch(editItem(this.state.id,data));
+        this.props.dispatch(editItem(this.state.id,data,this.state.header));
         
         Swal.fire({
             position: 'center',

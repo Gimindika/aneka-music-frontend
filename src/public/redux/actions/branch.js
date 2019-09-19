@@ -7,23 +7,23 @@ export const getBranch = () => {
     }
 }
 
-export const addBranch = (data) => {
+export const addBranch = (data, header) => {
     return{
         type: 'ADD_BRANCH',
-        payload: Axios.post('http://localhost:3001/api/branch/', data)
+        payload: Axios.post('http://localhost:3001/api/branch/', data, header)
     }
 }
 
-export const editBranch = (id, data) => {
+export const editBranch = (id, data, header) => {
     return{
         type: 'EDIT_BRANCH',
-        payload: Axios.put(`http://localhost:3001/api/branch/${id}`, data)
+        payload: Axios.put(`http://localhost:3001/api/branch/${id}`, data, header)
     }
 }
 
-export const deleteBranch = (id) => {
+export const deleteBranch = (id, header) => {
     return{
         type: 'DELETE_BRANCH',
-        payload: Axios.delete(`http://localhost:3001/api/branch/${id}`)
+        payload: Axios.delete(`http://localhost:3001/api/branch/${id}`, header)
     }
 }

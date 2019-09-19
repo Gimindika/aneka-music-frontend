@@ -16,6 +16,8 @@ class Cart extends React.Component{
         this.state = {
             cart:[],
             user:{},
+            token:'',
+            header:'',
             total:0,
 
             receipt:false
@@ -23,13 +25,7 @@ class Cart extends React.Component{
     }
 
     componentDidMount = async () => {
-        const {match: {params}} = this.props;
-        await this.setState({id:params.id});
-
-        await this.props.dispatch(getCart(this.state.id));
-        await this.setState({cart:this.props.cart})
-
-        this.setState({
+        await this.setState({
             user:{
                 id:localStorage.getItem('userID'),
                 name:localStorage.getItem('userName'),
@@ -38,6 +34,16 @@ class Cart extends React.Component{
             },
             token:localStorage.getItem('token'),
         })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
+        const {match: {params}} = this.props;
+        await this.setState({id:params.id});
+
+        await this.props.dispatch(getCart(this.state.id, this.state.header));
+        await this.setState({cart:this.props.cart})
+
+        
     }
 
     editQuantity = async (user, item, branch, quantity) => {
@@ -47,10 +53,10 @@ class Cart extends React.Component{
             quantity
         }
         if(quantity > 0){
-            await this.props.dispatch(editCart(user, data));
+            await this.props.dispatch(editCart(user, data, this.state.header));
             await this.setState({cart:this.props.cart});
         } else {
-            await this.props.dispatch(deleteCart(user, item, branch));
+            await this.props.dispatch(deleteCart(user, item, branch, this.state.header));
             await this.setState({cart:this.props.cart});
            
         }
@@ -81,7 +87,7 @@ class Cart extends React.Component{
             transactionitems: [...tmp]
         }
 
-        this.props.dispatch(newTransaction(this.state.user.id, data));
+        this.props.dispatch(newTransaction(this.state.user.id, data, this.state.header));
         Swal.fire({
             position: 'center',
             type: 'success',

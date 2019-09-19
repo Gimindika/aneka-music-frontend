@@ -17,10 +17,26 @@ class AddItem extends React.Component{
         image:'',
         description:'',
         category:'',
-        itemstock:[]
+        itemstock:[],
+
+        user:{},
+        token:'',
+        header:''
     }
 
     componentDidMount = async () => {
+        await this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
         await this.props.dispatch(getCategories())
         await this.setState({categoryList:this.props.categories})
         this.setState({category:this.state.categoryList[0].id})
@@ -79,7 +95,7 @@ class AddItem extends React.Component{
         }
         
         
-        this.props.dispatch(addItem(data));
+        this.props.dispatch(addItem(data,this.state.header));
         Swal.fire({
             position: 'center',
             type: 'success',

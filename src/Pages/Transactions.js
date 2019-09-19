@@ -5,6 +5,9 @@ import {getUserTransactions} from '../public/redux/actions/transactions';
 class Transactions extends React.Component{
     state={
         user:{},
+        token:'',
+        header:'',
+
         userTransactions:[],
         id:''
     }
@@ -15,10 +18,7 @@ class Transactions extends React.Component{
     }
 
     componentDidMount = async () => {
-        const {match: {params}} = this.props;
-        await this.setState({id:params.id});
-
-        this.setState({
+        await this.setState({
             user:{
                 id:localStorage.getItem('userID'),
                 name:localStorage.getItem('userName'),
@@ -27,8 +27,13 @@ class Transactions extends React.Component{
             },
             token:localStorage.getItem('token'),
         })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
 
-        await this.props.dispatch(getUserTransactions(this.state.id));
+        const {match: {params}} = this.props;
+        await this.setState({id:params.id});
+
+        await this.props.dispatch(getUserTransactions(this.state.id, this.state.header));
         await this.setState({userTransactions:this.props.userTransactions})
         console.log(this.state);
         

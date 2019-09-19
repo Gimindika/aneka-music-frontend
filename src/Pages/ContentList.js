@@ -18,13 +18,7 @@ class ContentList extends React.Component{
     }
 
     componentDidMount = async () => {
-        await this.props.dispatch(getCategories());
         await this.setState({
-            categories:this.props.categories,
-            displayCategories: this.props.displayCategories
-        })
-        
-        this.setState({
             user:{
                 id:localStorage.getItem('userID'),
                 name:localStorage.getItem('userName'),
@@ -32,6 +26,12 @@ class ContentList extends React.Component{
                 level:localStorage.getItem('userLevel'),
             },
             token:localStorage.getItem('token'),
+        })
+        
+        await this.props.dispatch(getCategories());
+        await this.setState({
+            categories:this.props.categories,
+            displayCategories: this.props.displayCategories
         })
      
     }

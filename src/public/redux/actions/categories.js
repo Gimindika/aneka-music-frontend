@@ -7,24 +7,24 @@ export const getCategories = () => {
     }
 }
 
-export const addCategory = (data) => {
+export const addCategory = (data, header) => {
     return{
         type: 'ADD_CATEGORY',
-        payload: Axios.post('http://localhost:3001/api/categories/', data)
+        payload: Axios.post('http://localhost:3001/api/categories/', data, header)
     }
 }
 
-export const editCategory = (id, data) => {
+export const editCategory = (id, data, header) => {
     return{
         type: 'EDIT_CATEGORY',
-        payload: Axios.put(`http://localhost:3001/api/categories/${id}`, data)
+        payload: Axios.put(`http://localhost:3001/api/categories/${id}`, data, header)
     }
 }
 
-export const deleteCategory = (id) => {
+export const deleteCategory = (id, header) => {
     return{
         type: 'DELETE_CATEGORY',
-        payload: Axios.delete(`http://localhost:3001/api/categories/${id}`)
+        payload: Axios.delete(`http://localhost:3001/api/categories/${id}`, header)
     }
 }
 

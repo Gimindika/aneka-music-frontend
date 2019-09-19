@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-import ReactToPrint from "react-to-print";
+import React from "react";
 import '../style/Cart.css'
 
 class Receipt extends React.Component{

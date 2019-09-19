@@ -5,6 +5,9 @@ import {getTransactionsByMonth} from '../public/redux/actions/transactions';
 class TransactionsByMonth extends React.Component{
     state={
         user:{},
+        token:'',
+        header:'',
+
         transactionsByMonth:[],
         month:''
     }
@@ -15,10 +18,7 @@ class TransactionsByMonth extends React.Component{
     }
 
     componentDidMount = async () => {
-        const {match: {params}} = this.props;
-        await this.setState({month:params.month});
-
-        this.setState({
+        await this.setState({
             user:{
                 id:localStorage.getItem('userID'),
                 name:localStorage.getItem('userName'),
@@ -27,8 +27,14 @@ class TransactionsByMonth extends React.Component{
             },
             token:localStorage.getItem('token'),
         })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
 
-        await this.props.dispatch(getTransactionsByMonth(this.state.month));
+        const {match: {params}} = this.props;
+        await this.setState({month:params.month});
+
+
+        await this.props.dispatch(getTransactionsByMonth(this.state.month, this.state.header));
         await this.setState({transactionsByMonth:this.props.transactionsByMonth})
 
         

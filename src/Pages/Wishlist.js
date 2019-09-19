@@ -11,15 +11,31 @@ class Wishlist extends React.Component{
         super(props);
         this.state = {
             wishlist:[],
-            id:''
+            id:'',
+
+            user:{},
+            token:'',
+            header:''
         }
     }
 
     componentDidMount = async () => {
+        await this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
         const {match: {params}} = this.props;
         await this.setState({id:params.id});
 
-        await this.props.dispatch(getWishlist(this.state.id));
+        await this.props.dispatch(getWishlist(this.state.id, this.state.header));
         await this.setState({wishlist:this.props.wishlist})
     }
 

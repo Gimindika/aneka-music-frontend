@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {getBranch , addBranch} from '../public/redux/actions/branch';
 import {getCategories, addCategory} from '../public/redux/actions/categories';
-import { async } from 'q';
 import Swal from 'sweetalert2';
 
 class CategoriesBranch extends React.Component {
@@ -13,10 +12,26 @@ class CategoriesBranch extends React.Component {
         categoryImage:'',
         categoryName:'',
 
-        branchLocation:''
+        branchLocation:'',
+
+        user:{},
+        token:'',
+        header:''
     }
 
     componentDidMount = async () => {
+        await this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
         await this.props.dispatch(getCategories())
         await this.setState({categoryList:this.props.categories})
 
@@ -34,7 +49,7 @@ class CategoriesBranch extends React.Component {
             image:this.state.categoryImage
         }
     
-        await this.props.dispatch(addCategory(data));
+        await this.props.dispatch(addCategory(data, this.state.header));
         Swal.fire({
             position: 'center',
             type: 'success',
@@ -50,7 +65,7 @@ class CategoriesBranch extends React.Component {
             location:this.state.branchLocation
         }
 
-        await this.props.dispatch(addBranch(data));
+        await this.props.dispatch(addBranch(data, this.state.header));
         Swal.fire({
             position: 'center',
             type: 'success',

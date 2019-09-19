@@ -9,17 +9,32 @@ import Swal from 'sweetalert2';
 
 class ItemDetail extends React.Component{
     state={
-        user:{},
         itemDetails:{},
         itemstock:[],
         cart:[],
         wishlist:[],
         isWishlisted: false,
         isAddedtoCart: false,
-        id:''
+        id:'',
+
+        user:{},
+        token:'',
+        header:''
     }
 
     componentDidMount = async () => {
+        await this.setState({
+            user:{
+                id:localStorage.getItem('userID'),
+                name:localStorage.getItem('userName'),
+                email:localStorage.getItem('userEmail'),
+                level:localStorage.getItem('userLevel'),
+            },
+            token:localStorage.getItem('token'),
+        })
+        const header = {headers:{'authorization':'Bearer '+this.state.token}};
+        this.setState({header:header});
+
         const {match: {params}} = this.props;
         await this.setState({id:params.id});
 
@@ -38,7 +53,7 @@ class ItemDetail extends React.Component{
         await this.setState({itemstock:this.state.itemDetails.itemstock})
 
         //wishlist//////////////////////////////////////////////////////////
-        await this.props.dispatch(getWishlist(this.state.user.id));
+        await this.props.dispatch(getWishlist(this.state.user.id,this.state.header));
         await this.setState({wishlist:this.props.wishlist})
 
         this.state.wishlist.map(item => {
@@ -49,7 +64,7 @@ class ItemDetail extends React.Component{
         })
 
         //cart///////////////////////////////////////////////////////
-        await this.props.dispatch(getCart(this.state.user.id));
+        await this.props.dispatch(getCart(this.state.user.id,this.state.header));
         await this.setState({cart:this.props.cart}) 
         
     }
@@ -57,13 +72,13 @@ class ItemDetail extends React.Component{
     //wishlist//////////////////////////////////////////////////////
     addRemoveWishlist = async (user, item, command) => {
         if(command == 'add'){ // eslint-disable-line
-            await this.props.dispatch(addWishlist(user, item));
+            await this.props.dispatch(addWishlist(user, item, this.state.header));
             await this.setState({
                 wishlist:this.props.wishlist,
                 isWishlisted:true
             });
         } else if(command == 'remove') { // eslint-disable-line
-            await this.props.dispatch(deleteWishlist(user, item));
+            await this.props.dispatch(deleteWishlist(user, item, this.state.header));
             await this.setState({
                 wishlist:this.props.wishlist,
                 isWishlisted:false
@@ -93,8 +108,8 @@ class ItemDetail extends React.Component{
                 quantity
             }
             
-            await this.props.dispatch(addCart(user,data))
-            console.log('ca', user, data);
+            await this.props.dispatch(addCart(user,data,this.state.header))
+            
             await this.setState({
                 cart:this.props.cart,
                 isAddedtoCart:true
@@ -120,7 +135,7 @@ class ItemDetail extends React.Component{
     }
 
     deleteItem = () => {
-        this.props.dispatch(deleteItem(this.state.id));
+        this.props.dispatch(deleteItem(this.state.id,this.state.header));
         Swal.fire({
             position: 'center',
             type: 'success',
@@ -143,7 +158,7 @@ class ItemDetail extends React.Component{
                 <p className='item-detail-category'>Category : {this.state.itemDetails.category}</p>
             
                 {/* <EditModal ID={this.state.ID}/> */}
-                {this.state.user.level == 1 ? (
+                {this.state.user.level == 1 ? ( // eslint-disable-line
                     <div>
                         <button className='delete-button' onClick={this.deleteItem}>Delete </button>
                         <Link to={`/edititem/${this.state.id}`}><button className='edit-button'>Edit </button></Link>

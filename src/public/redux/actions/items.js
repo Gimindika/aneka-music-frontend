@@ -28,23 +28,23 @@ export const getItemDetails = (id) => {
     }
 }
 
-export const addItem = (data) => {
+export const addItem = (data,header) => {
     return{
         type: 'ADD_ITEM',
-        payload: Axios.post('http://localhost:3001/api/items/', data)
+        payload: Axios.post('http://localhost:3001/api/items/', data,header)
     }
 }
 
-export const editItem = (id, data) => {
+export const editItem = (id, data,header) => {
     return{
         type: 'EDIT_ITEM',
-        payload: Axios.put(`http://localhost:3001/api/items/${id}`, data)
+        payload: Axios.put(`http://localhost:3001/api/items/${id}`, data,header)
     }
 }
 
-export const deleteItem = (id) => {
+export const deleteItem = (id,header) => {
     return{
         type: 'DELETE_ITEM',
-        payload: Axios.delete(`http://localhost:3001/api/items/${id}`)
+        payload: Axios.delete(`http://localhost:3001/api/items/${id}`, header)
     }
 }
