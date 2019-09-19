@@ -143,7 +143,7 @@ class ItemDetail extends React.Component{
                 <p className='item-detail-category'>Category : {this.state.itemDetails.category}</p>
             
                 {/* <EditModal ID={this.state.ID}/> */}
-                {this.state.user.level == 2 ? (
+                {this.state.user.level == 1 ? (
                     <div>
                         <button className='delete-button' onClick={this.deleteItem}>Delete </button>
                         <Link to={`/edititem/${this.state.id}`}><button className='edit-button'>Edit </button></Link>
@@ -161,7 +161,8 @@ class ItemDetail extends React.Component{
                             <div>
                                 {stock.branch} : {stock.quantity} unit(s) for Rp. {stock.price} each.
                             </div>
-                            <span className='addtocart-span' onClick={() => {this.addToCart(this.state.user.id, this.state.id, this.state.itemDetails.name, stock.branchID, stock.branch, stock.price, 1)}}>Add to cart <img className='addto-cart' alt=''/></span>
+                            <span className='addtocart-span' onClick={() => {this.addToCart(this.state.user.id, this.state.id, this.state.itemDetails.name, stock.branchID, stock.branch, stock.price, 1)}}>
+                                {this.state.user.level > 0 ? (<span>Add to cart <img className='addto-cart' alt=''/></span>) :null}</span>
                         </li>)}
                     </ul>
                 </div>

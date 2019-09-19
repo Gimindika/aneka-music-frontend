@@ -103,7 +103,7 @@ class ContentList extends React.Component{
                     <div className='button-container'>
                         <Link to={`/transaction/${this.state.user.id}`}><button className='categorybranch-button'>Transaction List</button></Link>
 
-                        {this.state.user.level == 2 ? ( // eslint-disable-line
+                        {this.state.user.level == 1 ? ( // eslint-disable-line
                         <div>
                             <Link to={'/additem'}><button className='additem-button'>Add Item</button></Link>
                             <Link to={'/categoriesbranch'}><button className='categorybranch-button'>Category & Branch</button></Link>

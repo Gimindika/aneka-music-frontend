@@ -30,12 +30,14 @@ class TransactionsByMonth extends React.Component{
 
         await this.props.dispatch(getTransactionsByMonth(this.state.month));
         await this.setState({transactionsByMonth:this.props.transactionsByMonth})
+
+        
     }
 
     render(){
          return(
             <div>
-                <h1 className='title'>{'Transaction List : ' + this.state.user.name}</h1>
+                <h1 className='title'>Transaction List By Month</h1>
                 {this.state.transactionsByMonth.length !== 0 ?
                     (<div className='content'> 
                     <div>
@@ -43,10 +45,11 @@ class TransactionsByMonth extends React.Component{
                             <tbody>
                             {this.state.transactionsByMonth.map((transaction,index) =>   
                                 <div style={{marginBottom:'50px'}}>
-                                <tr key={index}>
-                                    <td>{this.convertTimeStamp(transaction.date)}</td>
-                                </tr>
-                                    
+                                    <tr key={index}>
+                                        <td>{this.convertTimeStamp(transaction.date)}</td>
+                                        <td>{transaction.customer}</td>
+                                    </tr>
+                                        
                                     <tr>
                                         {transaction.transactionitems.map((item, index) => {
                                             return(

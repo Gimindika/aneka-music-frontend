@@ -111,7 +111,10 @@ class Header extends React.Component{
                 {/* //modal/////////////////////////////////////////////////////////////////////////////////////////////// */}
                 <div>
                     {this.state.user.id == 0 ?(         // eslint-disable-line
+                        <div>
+                        <Link to={'/register'}><Button className='register-button'>Register</Button></Link>
                         <Button className='login-button' onClick={this.toggle}>Login</Button>
+                        </div>
                     ):
                     (
                     <div>

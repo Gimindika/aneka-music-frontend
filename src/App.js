@@ -14,6 +14,7 @@ import TransactionsByMonth from './Pages/TransactionsByMonth';
 import AddItem from './Pages/AddItem';
 import EditItem from './Pages/EditItem';
 import CategoriesBranch from './Pages/CategoriesBranch';
+import Register from './Pages/Register';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                   <Route path='/additem' component={AddItem}/>
                   <Route path='/edititem/:id' component={EditItem}/>
                   <Route path='/categoriesbranch' component={CategoriesBranch}/>
+                  <Route path='/register' component={Register}/>
                 </Switch>
             </div>
           </div>

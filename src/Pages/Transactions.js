@@ -30,6 +30,8 @@ class Transactions extends React.Component{
 
         await this.props.dispatch(getUserTransactions(this.state.id));
         await this.setState({userTransactions:this.props.userTransactions})
+        console.log(this.state);
+        
     }
 
     render(){

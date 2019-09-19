@@ -70,6 +70,32 @@
     border: 1px solid white;
 }
 
+.register-button{
+  position: absolute;
+  width: 100px;
+  height: 48px;
+  left: 84%;
+  top: 23px;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 34px;
+  text-align: center;
+  color: black;
+
+  background: #F5D372;
+}
+
+.register-button:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
   .user-name{
     position: absolute;
     width: 250px;
