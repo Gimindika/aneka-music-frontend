@@ -80,7 +80,9 @@ class Cart extends React.Component{
                 item:cartitem.itemID,
                 branch:cartitem.branchID,
                 quantity:cartitem.quantity,
-                price:(cartitem.price * cartitem.quantity)
+                price:(cartitem.price * cartitem.quantity),
+                itemName: cartitem.item,
+                location: cartitem.branch
             })
             return null;
         })

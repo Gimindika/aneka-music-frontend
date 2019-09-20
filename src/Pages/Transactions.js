@@ -35,8 +35,6 @@ class Transactions extends React.Component{
 
         await this.props.dispatch(getUserTransactions(this.state.id, this.state.header));
         await this.setState({userTransactions:this.props.userTransactions})
-        console.log(this.state);
-        
     }
 
     render(){
@@ -58,9 +56,8 @@ class Transactions extends React.Component{
                                         {transaction.transactionitems.map((item, index) => {
                                             return(
                                                 <div key={index}>
-                                                
-                                                        <td>{item.name}</td>
-                                                        <td className='branch-label'>({item.branch})</td>
+                                                        <td>{item.itemName}</td>
+                                                        <td className='branch-label'>({item.location})</td>
                                                         <tr>
                                                             <td>{item.quantity} unit(s) </td>
                                                             <td>Rp. {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
