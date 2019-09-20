@@ -6,6 +6,7 @@ import { getCategories, setDisplay } from '../public/redux/actions/categories';
 import { getItemsByCategory, getItemsByName } from '../public/redux/actions/items';
 import '../style/ContentList.css';
 import { Link } from 'react-router-dom'
+import {DebounceInput} from 'react-debounce-input';
 
 class ContentList extends React.Component{
     state={
@@ -67,13 +68,22 @@ class ContentList extends React.Component{
                 {/* search bar */}
                 <div className='search-container'>
                 <img className='search-logo' alt=''></img>
-                <input 
+                <DebounceInput
+                    name='search'
+                    className='search-bar' 
+                    placeholder='Search'
+
+                    minLength={3}
+                    onChange = {this.search} 
+                >
+                </DebounceInput>
+                {/* <input 
                     name='search'
                     className='search-bar' 
                     placeholder='Search'
                     onChange = {this.search} 
                     >
-                </input>
+                </input> */}
 
                 </div>
                 {/* setting button */}
