@@ -133,9 +133,9 @@ class EditItem extends React.Component{
             itemstock:tmpStock
         }
         
-        console.log(data);
+        console.log('data',data);
         
-        this.props.dispatch(editItem(this.state.id,data,this.state.header));
+        this.props.dispatch(editItem(this.state.id, data,this.state.header));
         
         Swal.fire({
             position: 'center',

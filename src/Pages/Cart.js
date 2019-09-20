@@ -2,12 +2,13 @@ import React from 'react';
 import '../style/Cart.css';
 
 import { connect } from 'react-redux';
-import { getCart, editCart, deleteCart } from '../public/redux/actions/cart';
+import { getCart, editCart, deleteCart, clearCart } from '../public/redux/actions/cart';
 import { newTransaction } from '../public/redux/actions/transactions';
 
 import Receipt from '../Components/Receipt';
 import ReactToPrint from 'react-to-print';
 import Swal from 'sweetalert2';
+import { async } from 'q';
 
 
 class Cart extends React.Component{
@@ -72,7 +73,7 @@ class Cart extends React.Component{
         return tot
     }
 
-    handleCheckout = () => {
+    handleCheckout = async () => {
         const tmp = [];
         this.state.cart.map(cartitem => {
             tmp.push({
@@ -87,15 +88,16 @@ class Cart extends React.Component{
             transactionitems: [...tmp]
         }
 
-        this.props.dispatch(newTransaction(this.state.user.id, data, this.state.header));
-        Swal.fire({
+       await this.props.dispatch(newTransaction(this.state.user.id, data, this.state.header));
+        await Swal.fire({
             position: 'center',
             type: 'success',
             title: 'transaction success \n You may print the receipt',
             showConfirmButton: false,
             timer: 800
         })
-        this.setState({receipt:true})
+        await this.setState({receipt:true})
+        await this.props.dispatch(clearCart(this.state.user.id, this.state.header));
     }
 
     render(){
