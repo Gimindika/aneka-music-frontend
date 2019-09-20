@@ -8,6 +8,7 @@ import { Link, withRouter } from "react-router-dom";
 
 import { Button, Modal, ModalBody } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 class Header extends React.Component{
     state={
@@ -50,6 +51,12 @@ class Header extends React.Component{
         this.setState({[event.target.name]:[event.target.value]})
     }
 
+    keyPressHandler = (key) => {
+        if(key.charCode == 13 ){ //eslint-disable-line
+            this.login();
+        }
+    }
+
     login = async () => {
         // event.preventDefault();
       
@@ -61,7 +68,13 @@ class Header extends React.Component{
         await this.props.dispatch(login(this.state))
       
         if(this.props.user == null){
-            alert('Wrong email or password!');
+            Swal.fire({
+                position: 'center',
+                type: 'error',
+                title: 'Wrong email or password!',
+                showConfirmButton: false,
+                timer: 800
+            })
             this.setState({modal:false})
         } else {
             localStorage.setItem('userName',this.props.user.name)
@@ -71,8 +84,21 @@ class Header extends React.Component{
             localStorage.setItem('token', this.props.token)
             this.setState({user:this.props.user})
             this.setState({modal:false})
-            // this.props.history.push('/');  
-            window.location.href = '/'; 
+            
+            const title = 'Welcome ' + this.state.user.name;
+
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                title: title,
+                showConfirmButton: false,
+                timer: 800
+            })
+            setInterval(() => {
+                window.location.href = '/'; 
+                // this.props.history.push('/');
+            }, 800);
+            
         }   
     }
 
@@ -82,7 +108,17 @@ class Header extends React.Component{
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userLevel');
         localStorage.removeItem('token');
-        window.location.href = '/';
+
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Logged Out successfully.\n See you soon.',
+            showConfirmButton: false,
+            timer: 800
+        })
+        setInterval(() => {
+            window.location.href = '/';
+        }, 800);
     }
 
     toggle = () => {
@@ -142,7 +178,7 @@ class Header extends React.Component{
                             <div>
                                 <Label for="password" className='label-login'>Password : </Label>
                             </div>
-                            <Input type="password" name="password" id="password" className='input-login' onChange={this.inputHandler} placeholder='password'/>
+                            <Input type="password" name="password" id="password" className='input-login' onChange={this.inputHandler} placeholder='password' onKeyPress={(event) => {this.keyPressHandler(event)}}/>
                         </FormGroup>
 
                         <Button className='cancel-button' onClick={this.toggle}>Cancel</Button>

@@ -42,7 +42,7 @@ class Register extends React.Component{
             Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: 'Register success.',
+                title: 'Register success. \n Welcome to Aneka Music',
                 showConfirmButton: false,
                 timer: 800
             })

@@ -174,7 +174,7 @@ class ItemDetail extends React.Component{
                         {this.state.itemstock.map((stock,index) => 
                         <li className='available-list' key={index}>
                             <div>
-                                {stock.branch} : {stock.quantity} unit(s) for Rp. {stock.price} each.
+                                {stock.branch} : {stock.quantity} unit(s) for Rp. {stock.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} each.
                             </div>
                             <span className='addtocart-span' onClick={() => {this.addToCart(this.state.user.id, this.state.id, this.state.itemDetails.name, stock.branchID, stock.branch, stock.price, 1)}}>
                                 {this.state.user.level > 0 ? (<span>Add to cart <img className='addto-cart' alt=''/></span>) :null}</span>

@@ -65,7 +65,7 @@ class TransactionsByMonth extends React.Component{
                                                         <td className='branch-label'>({item.branch})</td>
                                                         <tr>
                                                             <td>{item.quantity} unit(s) </td>
-                                                            <td>Rp. {item.price}</td>
+                                                            <td>Rp. {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                                         </tr>
                                                 </div>
                                             )   
@@ -73,7 +73,7 @@ class TransactionsByMonth extends React.Component{
                                     </tr>
 
                                     <tr>
-                                        <td>Total : Rp.{Object.values(transaction.transactionitems).reduce((total, {price}) => total + price, 0)}</td>
+                                        <td>Total : Rp.{Object.values(transaction.transactionitems).reduce((total, {price}) => total + price, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                     </tr>
 
                                 </div>

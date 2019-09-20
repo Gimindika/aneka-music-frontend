@@ -114,7 +114,7 @@ class Cart extends React.Component{
                                     <div className='itembranch'>
                                         <div>{item.item}</div>    
                                         <div className='branch-label'>{item.branch}</div>
-                                        <div className='price'>RP. {item.price}</div>
+                                        <div className='price'>RP. {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                     </div>
                                 </td>
                                 <td><img className='minus-button' alt='' 
@@ -122,7 +122,7 @@ class Cart extends React.Component{
                                 <td className='quantity'>{item.quantity}</td>
                                 <td><img className='plus-button' alt=''
                                 onClick={() => {this.editQuantity(this.state.user.id, item.itemID, item.branchID, item.quantity+=1)}}/></td>
-                                <td className='pricequantity'>Rp. {item.price * item.quantity}</td>
+                                <td className='pricequantity'>Rp. {(item.price * item.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                 </tr>
                             )}
                                 <tr>
@@ -131,7 +131,7 @@ class Cart extends React.Component{
                                     <td></td>
                                     <td></td>
 
-                                    <td>Rp. {this.total()}</td>
+                                    <td>Rp. {this.total().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                 </tr>
                             </tbody>
                         </table>

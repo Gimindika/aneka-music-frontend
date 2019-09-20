@@ -29,7 +29,7 @@ class Receipt extends React.Component{
                             <td className='branch-label'>({item.branch})</td>
                             <tr>
                                 <td>{item.quantity} unit(s) </td>
-                                <td>Rp. {item.price * item.quantity}</td>
+                                <td>Rp. {(item.price * item.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                             </tr>
                     </div>
                 )   
@@ -37,7 +37,7 @@ class Receipt extends React.Component{
         </tr>
 
         <tr>
-            <td className='totalprice'>Total : Rp.{Object.values(this.state.transaction).reduce((total, {price, quantity}) => total + price*quantity, 0)}</td>
+            <td className='totalprice'>Total : Rp.{Object.values(this.state.transaction).reduce((total, {price, quantity}) => total + price*quantity, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         </tr>
         </table>
     </div>
