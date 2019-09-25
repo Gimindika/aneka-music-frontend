@@ -1,30 +1,32 @@
 import Axios from 'axios';
+const url = 'https://quiet-atoll-55962.herokuapp.com';
+
 
 export const getCategories = () => {
     return{
         type: 'GET_CATEGORIES',
-        payload: Axios.get('http://localhost:3001/api/categories/')
+        payload: Axios.get(`${url}/api/categories/`)
     }
 }
 
 export const addCategory = (data, header) => {
     return{
         type: 'ADD_CATEGORY',
-        payload: Axios.post('http://localhost:3001/api/categories/', data, header)
+        payload: Axios.post(`${url}/api/categories/`, data, header)
     }
 }
 
 export const editCategory = (id, data, header) => {
     return{
         type: 'EDIT_CATEGORY',
-        payload: Axios.put(`http://localhost:3001/api/categories/${id}`, data, header)
+        payload: Axios.put(`${url}/api/categories/${id}`, data, header)
     }
 }
 
 export const deleteCategory = (id, header) => {
     return{
         type: 'DELETE_CATEGORY',
-        payload: Axios.delete(`http://localhost:3001/api/categories/${id}`, header)
+        payload: Axios.delete(`${url}/api/categories/${id}`, header)
     }
 }
 

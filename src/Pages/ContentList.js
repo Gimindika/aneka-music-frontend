@@ -19,6 +19,8 @@ class ContentList extends React.Component{
     }
 
     componentDidMount = async () => {
+        console.log(this.props);
+        
         await this.setState({
             user:{
                 id:localStorage.getItem('userID'),
