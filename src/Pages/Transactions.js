@@ -68,7 +68,7 @@ class Transactions extends React.Component{
                                     </tr>
 
                                     <tr>
-                                        <td>Total : Rp.{Object.values(transaction.transactionitems).reduce((total, {price}) => total + price, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                        <td>Total : Rp.{Object.values(transaction.transactionitems).reduce((total, {price,quantity}) => total + price*quantity, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                     </tr>
 
                                 </div>
